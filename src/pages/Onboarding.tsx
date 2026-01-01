@@ -6,7 +6,7 @@ export default function Onboarding() {
   const options = [
     {
       label: "User",
-      row: "/user-home",
+      row: "/onboarding",
     },
     {
       label: "Hotel Management",
