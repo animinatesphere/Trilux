@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import onboard from "../../assets/Onboarding 2 4.png";
 import onboard2 from "../../assets/Continue with 1.png";
 import { ChevronLeft, Mail, Facebook, Apple } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface FormData {
   name: string;
@@ -375,18 +376,69 @@ const SignInPage: React.FC<PageProps> = ({
           />
         </div>
       </div>
-
+      <Link to="/user-dashboard">
+        <button className="w-full bg-[#1CB5C5] text-white font-semibold py-4 rounded-2xl hover:bg-[#0EA5B5] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg">
+          Sign In
+        </button>
+      </Link>
       <button
-        onClick={() => alert("Sign In Successful!")}
-        className="w-full bg-[#1CB5C5] text-white font-semibold py-4 rounded-2xl hover:bg-[#0EA5B5] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+        className=" text-gray-400 hover:text-gray-600 text-sm"
+        onClick={() => setCurrentPage("forgotten")}
       >
-        Sign In
-      </button>
-      <button className=" text-gray-400 hover:text-gray-600 text-sm">
         Forgot Password?
       </button>
       <button className="w-full text-gray-600 font-medium hover:text-gray-800 transition-colors">
         Skip for now
+      </button>
+    </div>
+  </div>
+);
+const Forgotten: React.FC<PageProps> = ({
+  setCurrentPage,
+  formData,
+  handleInputChange,
+}) => (
+  <div className="min-h-screen  flex flex-col lg:flex-row animate-fadeIn max-w-[1400px]  mx-auto h-[400px] gap-[2rem] lg:p-[50px]">
+    <img src={onboard2} alt="" className="w-[700px] h-[700px]" />
+
+    <div className="">
+      <button
+        onClick={() => setCurrentPage("welcome")}
+        className="p-2 hover:bg-white/10 rounded-full transition-colors"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+    </div>
+
+    <div className="bg-white rounded-t-3xl px-6 py-8 space-y-6 animate-slideUp max-w-[700px] lg:w-[600px] lg:mt-[7rem]">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          Forgot Password
+        </h1>
+        <p className="text-gray-600">
+          Don't have an account?{" "}
+          <button
+            onClick={() => setCurrentPage("signin")}
+            className="text-[#1CB5C5] font-semibold hover:underline"
+          >
+            Sign in
+          </button>
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          placeholder="Email ex: stellanova@gmail.com"
+          className="w-full border-2 border-gray-200 rounded-2xl py-4 px-6 focus:outline-none focus:border-[#1CB5C5] transition-colors"
+        />
+      </div>
+
+      <button className="w-full bg-[#1CB5C5] text-white font-semibold py-4 rounded-2xl hover:bg-[#0EA5B5] transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg">
+        Send confirmation Code
       </button>
     </div>
   </div>
@@ -488,6 +540,7 @@ const Login: React.FC = () => {
       {currentPage === "signup" && <SignUpPage {...pageProps} />}
       {currentPage === "confirmation" && <ConfirmationPage {...pageProps} />}
       {currentPage === "signin" && <SignInPage {...pageProps} />}
+      {currentPage === "forgotten" && <Forgotten {...pageProps} />}
       {currentPage === "adventure" && <AdventurePage {...pageProps} />}
     </>
   );
